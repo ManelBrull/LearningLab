@@ -1,0 +1,7 @@
+{Alta,Bajo,Bajo,False,True}
+{Alta,Alto,Bajo,True,True}
+{Baja,Bajo,Alto,True,True}
+{Media,Bajo,Bajo,True,True}
+{Alta,Bajo,Alto,True,True}
+{Baja,Alto,Alto,True,True}
+{Baja,Alto,Bajo,False,False}

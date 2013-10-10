@@ -1,0 +1,259 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 9.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       157,          7]
+NotebookDataLength[      8611,        249]
+NotebookOptionsPosition[      7588,        208]
+NotebookOutlinePosition[      7932,        223]
+CellTagsIndexPosition[      7889,        220]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["APRENDIZAJE : Lab", "Title",
+ CellChangeTimes->{{3.5904241108369784`*^9, 3.59042418761937*^9}, {
+  3.590424557704538*^9, 3.590424558901606*^9}}],
+
+Cell[CellGroupData[{
+
+Cell["Exercise 1 : ", "Section",
+ CellChangeTimes->{{3.5904241906015406`*^9, 3.5904241986410007`*^9}}],
+
+Cell[CellGroupData[{
+
+Cell["Descripci\[OAcute]n del ejercicio:", "Subsection",
+ CellChangeTimes->{{3.5904245432917137`*^9, 3.590424571405321*^9}}],
+
+Cell["\<\
+La tarea de clasificaci\[OAcute]n es la descrita en las transparencias del \
+tema como Administrar f\[AAcute]rmaco F.Se debe obtener un \[AAcute]rbol de \
+decisi\[OAcute]n a partir del fichero de aprendizaje.Una vez obtenido el  \
+arbol se deben clasificar las instancias del fichero de test y comprobar si \
+existen discrepancias con respecto al \[AAcute]rbol mostrado en las \
+transparencias del tema.Observe que en el fichero de test  aparece un \
+atributo menos que es el correspondiente con la decisi\[OAcute]n.\
+\>", "Text",
+ CellChangeTimes->{{3.5904242882231245`*^9, 3.590424316327732*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Pseudoc\[OAcute]digo : ", "Subsection",
+ CellChangeTimes->{{3.590424574819517*^9, 3.590424591014443*^9}}],
+
+Cell["\<\
+Algoritmo ID3 (Ejemplos, Atributo_salida, Atributos)
+
+Ejemplos : Ejemplos de aprendizaje.
+Atributo_salida: Atributo a predecir por el \[AAcute]rbol.
+Atributos : Lista de atributos a comprobar por el \[AAcute]rbol.
+
+(1) Crear una raiz para el \[AAcute]rbol.
+(2) Si todos los ejemplos son positivos Return (raiz, +)
+(3) Si todos los ejemplos son negativos Return (raiz, -)
+(4) Si Atributos = Null entonces Return (raiz, l)
+\t(l es el m\[AAcute]ximo valor com\[UAcute]n de Atributo_salida en Ejemplos)
+Si ninguna de las anteriores condiciones se cumple
+Begin
+\t(1) Seleccionar el atributo A con mayor Ganancia (Ejemplos, A)
+\t(2) El atributo de decisi\[OAcute]n para raiz es A
+\t(3) Para cada posible valor vi de A
+\t\t(3.1) A\[NTilde]adir una rama a raiz con el test A = vi
+\t\t(3.2) Ejemplos_vi es el subconjunto de Ejemplos con valor vi para A
+\t\t(3.3) Si Ejemplos_vi = NULL
+entonces a\[NTilde]adir un nodo (n, l) a partir de la rama creada.(l es el m\
+\[AAcute]ximo valor com\[UAcute]n de Atributo_salida en Ejemplos).sino a\
+\[NTilde]adir a la rama creada el sub\[AAcute]rbol
+ID3 (Ejemplos_vi, Atributo_salida, Atributos - {A})
+End
+Return (raiz)\
+\>", "Text",
+ CellChangeTimes->{{3.5904243465164585`*^9, 3.5904244231528416`*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Variables :", "Subsection",
+ CellChangeTimes->{{3.590424618960041*^9, 3.590424641260317*^9}}],
+
+Cell[BoxData[
+ RowBox[{"ejemplos", ":=", 
+  RowBox[{"{", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{
+     "Alta", ",", "Alto", ",", "Alto", ",", "False", ",", "False", ",", 
+      "True"}], "}"}], ",", "\n", 
+    RowBox[{"{", 
+     RowBox[{
+     "Alta", ",", "Alto", ",", "Alto", ",", "True", ",", "False", ",", 
+      "True"}], "}"}], ",", "\n", 
+    RowBox[{"{", 
+     RowBox[{
+     "Baja", ",", "Alto", ",", "Bajo", ",", "False", ",", "False", ",", 
+      "True"}], "}"}], ",", "\n", 
+    RowBox[{"{", 
+     RowBox[{
+     "Media", ",", "Alto", ",", "Alto", ",", "False", ",", "True", ",", 
+      "False"}], "}"}], ",", "\n", 
+    RowBox[{"{", 
+     RowBox[{
+     "Media", ",", "Bajo", ",", "Alto", ",", "True", ",", "True", ",", 
+      "False"}], "}"}], ",", "\n", 
+    RowBox[{"{", 
+     RowBox[{
+     "Baja", ",", "Bajo", ",", "Alto", ",", "True", ",", "True", ",", 
+      "True"}], "}"}], ",", "\n", 
+    RowBox[{"{", 
+     RowBox[{
+     "Alta", ",", "Bajo", ",", "Alto", ",", "True", ",", "False", ",", 
+      "True"}], "}"}]}], "}"}]}]], "Input",
+ CellChangeTimes->{{3.5904246800865374`*^9, 3.590424687138941*^9}, {
+  3.5904247417830667`*^9, 3.5904247575829697`*^9}}],
+
+Cell[BoxData[
+ RowBox[{"atributoSalida", " ", ":=", " ", 
+  RowBox[{"-", "1"}]}]], "Input",
+ CellChangeTimes->{{3.590424913373881*^9, 3.5904249280987234`*^9}, {
+  3.5904250840916452`*^9, 3.5904250881928797`*^9}}],
+
+Cell[BoxData[
+ RowBox[{"atributos", " ", ":=", " ", 
+  RowBox[{"Range", "[", 
+   RowBox[{"Length", "[", "ejemplos", "]"}], "]"}]}]], "Input",
+ CellChangeTimes->{{3.5904249335380344`*^9, 3.590424937020233*^9}, {
+  3.59042503556987*^9, 3.5904250792363677`*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"ejemplos", "[", 
+   RowBox[{"[", "0", "]"}], "]"}], "[", 
+  RowBox[{"[", "0", "]"}], "]"}]], "Input",
+ CellChangeTimes->{{3.5904262128642073`*^9, 3.590426243224944*^9}}],
+
+Cell[BoxData["Symbol"], "Output",
+ CellChangeTimes->{{3.590426217139452*^9, 3.5904262439519854`*^9}}]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Funciones :", "Subsection",
+ CellChangeTimes->{{3.590425112583275*^9, 3.5904251222598286`*^9}}],
+
+Cell[BoxData[
+ RowBox[{"checkEjemplos", " ", "comprueba", " ", "si", " ", "todos", " ", 
+  "los", " ", "ejemplos", " ", "tienen", " ", "la", " ", "misma", " ", 
+  "acci\[OAcute]n"}]], "Input",
+ CellChangeTimes->{{3.590426932110346*^9, 3.590426955835703*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"checkEjemplos", "[", "valorAccion_", "]"}], " ", ":=", " ", 
+  RowBox[{"Module", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{"lengthEjemplos", ",", " ", "i"}], "}"}], ",", 
+    "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"lengthEjemplos", " ", "=", " ", 
+      RowBox[{"Length", "[", 
+       RowBox[{"ejemplos", "[", 
+        RowBox[{"[", "1", "]"}], "]"}], "]"}]}], ";", "\[IndentingNewLine]", 
+     RowBox[{"For", "[", 
+      RowBox[{
+       RowBox[{"i", "=", "1"}], ",", " ", 
+       RowBox[{"i", " ", "<=", " ", 
+        RowBox[{"Length", "[", "ejemplos", "]"}]}], ",", 
+       RowBox[{"i", "++"}], ",", "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{"If", "[", 
+         RowBox[{
+          RowBox[{
+           RowBox[{
+            RowBox[{"ejemplos", "[", 
+             RowBox[{"[", "i", "]"}], "]"}], "[", 
+            RowBox[{"[", "lengthEjemplos", "]"}], "]"}], " ", "=!=", " ", 
+           "valorAccion"}], ",", "\[IndentingNewLine]", 
+          RowBox[{"Return", "[", "False", "]"}]}], "\[IndentingNewLine]", 
+         "]"}], ";"}]}], "\[IndentingNewLine]", "]"}], ";"}]}], 
+   "\[IndentingNewLine]", "]"}]}]], "Input",
+ CellChangeTimes->{{3.590425129192225*^9, 3.5904251874185553`*^9}, {
+   3.590425456963972*^9, 3.5904254734129133`*^9}, {3.5904255118801136`*^9, 
+   3.5904255762197933`*^9}, {3.5904256181241903`*^9, 
+   3.5904256994018393`*^9}, {3.5904257391171107`*^9, 
+   3.5904258257070637`*^9}, {3.5904259921435833`*^9, 
+   3.5904260040752654`*^9}, {3.590426041991434*^9, 3.5904260425264645`*^9}, {
+   3.5904262322373157`*^9, 3.5904262804910755`*^9}, {3.590426333299096*^9, 
+   3.5904263714562783`*^9}, {3.590426427693495*^9, 3.590426451868878*^9}, 
+   3.5904264876439238`*^9, {3.590426523052949*^9, 3.590426554819766*^9}, {
+   3.590426692903664*^9, 3.5904266982999725`*^9}, {3.590426777170484*^9, 
+   3.5904268131035395`*^9}, {3.5904268642554646`*^9, 
+   3.5904269110081387`*^9}, {3.590426960189952*^9, 3.5904269706395493`*^9}}]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]]
+},
+WindowSize->{1350, 633},
+WindowMargins->{{0, Automatic}, {Automatic, 0}},
+FrontEndVersion->"9.0 for Microsoft Windows (64-bit) (November 20, 2012)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[579, 22, 150, 2, 90, "Title"],
+Cell[CellGroupData[{
+Cell[754, 28, 102, 1, 79, "Section"],
+Cell[CellGroupData[{
+Cell[881, 33, 124, 1, 43, "Subsection"],
+Cell[1008, 36, 608, 9, 68, "Text"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[1653, 50, 111, 1, 43, "Subsection"],
+Cell[1767, 53, 1242, 27, 448, "Text"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[3046, 85, 99, 1, 43, "Subsection"],
+Cell[3148, 88, 1176, 33, 152, "Input"],
+Cell[4327, 123, 212, 4, 31, "Input"],
+Cell[4542, 129, 259, 5, 31, "Input"],
+Cell[CellGroupData[{
+Cell[4826, 138, 204, 5, 31, "Input"],
+Cell[5033, 145, 101, 1, 31, "Output"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[5183, 152, 101, 1, 43, "Subsection"],
+Cell[5287, 155, 258, 4, 31, "Input"],
+Cell[5548, 161, 2000, 42, 172, "Input"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+
+(* End of internal cache information *)
+
